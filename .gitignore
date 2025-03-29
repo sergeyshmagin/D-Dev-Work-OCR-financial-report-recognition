@@ -38,6 +38,7 @@ venv/
 *.bmp
 *.tiff
 .env
+models/
 
 # Папка для промежуточных изображений
 data/intermediate_images/

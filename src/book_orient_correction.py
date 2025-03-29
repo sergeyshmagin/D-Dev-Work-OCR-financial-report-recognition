@@ -54,16 +54,51 @@ class UniversalAligner:
         return False
 
     def detect_table_lines(self, img):
-        """Обнаружение линий таблицы"""
+        """Обнаружение линий таблицы с адаптивными параметрами"""
         gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
         blur = cv2.GaussianBlur(gray, (5, 5), 0)
         edges = cv2.Canny(blur, 50, 150, apertureSize=3)
         
-        min_line_length = int(img.shape[1] * self.params['min_line_length'])
-        lines = cv2.HoughLinesP(edges, 1, np.pi/180, self.params['line_threshold'],
-                              minLineLength=min_line_length,
-                              maxLineGap=20)
+        # Адаптивные параметры для широких таблиц
+        min_line_length = int(img.shape[1] * 0.2)  # 20% от ширины изображения
+        max_line_gap = int(img.shape[1] * 0.05)    # 5% от ширины изображения
+        
+        lines = cv2.HoughLinesP(edges, 1, np.pi/180, threshold=self.params['line_threshold'],
+                            minLineLength=min_line_length,
+                            maxLineGap=max_line_gap)
         return lines if lines is not None else []
+
+    def should_rotate(self, img):
+        """Улучшенное определение необходимости поворота"""
+        h, w = img.shape[:2]
+        aspect_ratio = h / w
+        
+        # Если изображение явно вертикальное
+        if aspect_ratio > 1.5:
+            # Проверяем наличие таблицы
+            lines = self.detect_table_lines(img)
+            if len(lines) < 4:  # Недостаточно линий для таблицы
+                return False
+                
+            # Анализ ориентации текста
+            gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+            edges = cv2.Canny(gray, 50, 150)
+            lines = cv2.HoughLinesP(edges, 1, np.pi/180, 100, 
+                                minLineLength=w//3, 
+                                maxLineGap=20)
+            
+            if lines is not None:
+                horizontal = vertical = 0
+                for line in lines:
+                    x1, y1, x2, y2 = line[0]
+                    if abs(x1 - x2) < 10:  # Вертикальная линия
+                        vertical += 1
+                    elif abs(y1 - y2) < 10:  # Горизонтальная линия
+                        horizontal += 1
+                
+                return vertical > horizontal * 2  # Более строгий порог
+        
+        return False
 
     def calculate_skew_angle(self, lines, img_width):
         """Вычисление угла наклона"""
