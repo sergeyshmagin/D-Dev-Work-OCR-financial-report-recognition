@@ -29,3 +29,27 @@ __pycache__/
 *.py[cod]
 *.pyo
 *.pyd
+venv/
+*.pdf
+*.png
+*.jpg
+*.jpeg
+*.gif
+*.bmp
+*.tiff
+.env
+
+# Папка для промежуточных изображений
+data/intermediate_images/
+
+# Папка для выходных изображений
+data/output_images/
+
+# Папка для отчетов
+data/reports/
+
+# Папка для отчетов
+data/reports/
+
+
+
