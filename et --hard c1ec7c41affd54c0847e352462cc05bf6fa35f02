@@ -1,0 +1,23 @@
+[33mcommit c1ec7c41affd54c0847e352462cc05bf6fa35f02[m[33m ([m[1;36mHEAD[m[33m, [m[1;32mfeature/add-pdf-processing[m[33m)[m
+Author: Sergey Shmagin <sergey.shmagin@gmail.com>
+Date:   Sun Mar 30 08:34:21 2025 +0500
+
+    Промежуточный результат поворота страниц
+
+[33mcommit 62ac5d1eb0cb7653cd659436b9a8dd6cc815a562[m[33m ([m[1;31morigin/feature/add-pdf-processing[m[33m)[m
+Author: Sergey Shmagin <sergey.shmagin@gmail.com>
+Date:   Sat Mar 29 23:08:35 2025 +0500
+
+    Выравнивание работает
+
+[33mcommit 1506ab53332b06d409a90762fc4d8b088b8ad2f9[m
+Author: Sergey Shmagin <sergey.shmagin@gmail.com>
+Date:   Sat Mar 29 22:18:04 2025 +0500
+
+    first step 1-st document comleted
+
+[33mcommit 687ff1b8e11b812091610fd2b9fbda06811127ff[m[33m ([m[1;32mmaster[m[33m, [m[1;32mdevelop[m[33m)[m
+Author: Sergey Shmagin <sergey.shmagin@gmail.com>
+Date:   Sat Mar 29 12:55:05 2025 +0500
+
+    Первый коммит: инициализация проекта
